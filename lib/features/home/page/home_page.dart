@@ -9,8 +9,11 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: _HomePageBody(),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Can\'t Wait 🤩'),
+      ),
+      body: const _HomePageBody(),
     );
   }
 }
