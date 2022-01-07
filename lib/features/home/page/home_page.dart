@@ -34,82 +34,110 @@ class _HomePageBody extends StatelessWidget {
               horizontal: 30,
               vertical: 20,
             ),
-            children: [
-              Container(
-                margin: const EdgeInsets.symmetric(
-                  vertical: 10,
-                ),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 30,
-                  vertical: 20,
-                ),
-                color: Colors.black12,
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: const [
-                          Text(
-                            'Pokémon Legends: Arceus',
-                            style: TextStyle(fontSize: 20.0),
-                          ),
-                          SizedBox(height: 10),
-                          Text('2022-01-28'),
-                        ],
-                      ),
-                    ),
-                    Column(
-                      children: const [
-                        Text(
-                          '28',
-                          style: TextStyle(fontSize: 20.0),
-                        ),
-                        Text('days left'),
-                      ],
-                    ),
-                  ],
-                ),
+            children: const [
+              _ListViewItem(
+                imageURL:
+                    'https://www.imore.com/sites/imore.com/files/styles/xlarge/public/field/image/2021/08/pokemon-legends-arceus-fighting-growlithe.jpg',
+                title: 'Pokémon Legends: Arceus',
+                releaseDate: '2022-01-28',
+                daysLeft: 28,
               ),
-              Container(
-                margin: const EdgeInsets.symmetric(
-                  vertical: 10,
-                ),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 30,
-                  vertical: 20,
-                ),
-                color: Colors.black12,
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: const [
-                          Text(
-                            'GTA VI',
-                            style: TextStyle(fontSize: 20.0),
-                          ),
-                          SizedBox(height: 10),
-                          Text('2023-06-27'),
-                        ],
-                      ),
-                    ),
-                    Column(
-                      children: const [
-                        Text(
-                          '450',
-                          style: TextStyle(fontSize: 20.0),
-                        ),
-                        Text('days left'),
-                      ],
-                    ),
-                  ],
-                ),
+              _ListViewItem(
+                imageURL:
+                    'https://media.altchar.com/prod/images/940_530/gm-b45b4ee3-8212-415e-8640-bd6814933428-gta-vi.jpg',
+                title: 'GTA VI',
+                releaseDate: '2023-06-27',
+                daysLeft: 450,
               ),
             ],
           );
         },
+      ),
+    );
+  }
+}
+
+class _ListViewItem extends StatelessWidget {
+  const _ListViewItem({
+    Key? key,
+    required this.imageURL,
+    required this.title,
+    required this.releaseDate,
+    required this.daysLeft,
+  }) : super(key: key);
+
+  final String imageURL;
+  final String title;
+  final String releaseDate;
+  final int daysLeft;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(
+        vertical: 10,
+      ),
+      decoration: const BoxDecoration(
+        color: Colors.black12,
+      ),
+      child: Column(
+        children: [
+          Container(
+            height: 40,
+            decoration: BoxDecoration(
+              color: Colors.black12,
+              image: DecorationImage(
+                image: NetworkImage(
+                  imageURL,
+                ),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: Container(
+                  margin: const EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        title,
+                        style: const TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Text(releaseDate),
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                decoration: const BoxDecoration(
+                  color: Colors.white70,
+                ),
+                margin: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  children: [
+                    Text(
+                      '$daysLeft',
+                      style: const TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const Text('days left'),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
