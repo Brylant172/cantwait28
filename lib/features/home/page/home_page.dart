@@ -1,4 +1,5 @@
 import 'package:cantwait28/features/home/cubit/home_cubit.dart';
+import 'package:cantwait28/features/home/model/item_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -34,21 +35,11 @@ class _HomePageBody extends StatelessWidget {
               horizontal: 30,
               vertical: 20,
             ),
-            children: const [
-              _ListViewItem(
-                imageURL:
-                    'https://www.imore.com/sites/imore.com/files/styles/xlarge/public/field/image/2021/08/pokemon-legends-arceus-fighting-growlithe.jpg',
-                title: 'Pokémon Legends: Arceus',
-                releaseDate: '2022-01-28',
-                daysLeft: 28,
-              ),
-              _ListViewItem(
-                imageURL:
-                    'https://media.altchar.com/prod/images/940_530/gm-b45b4ee3-8212-415e-8640-bd6814933428-gta-vi.jpg',
-                title: 'GTA VI',
-                releaseDate: '2023-06-27',
-                daysLeft: 450,
-              ),
+            children: [
+              for (final itemModel in state.items)
+                _ListViewItem(
+                  itemModel: itemModel,
+                ),
             ],
           );
         },
@@ -60,16 +51,10 @@ class _HomePageBody extends StatelessWidget {
 class _ListViewItem extends StatelessWidget {
   const _ListViewItem({
     Key? key,
-    required this.imageURL,
-    required this.title,
-    required this.releaseDate,
-    required this.daysLeft,
+    required this.itemModel,
   }) : super(key: key);
 
-  final String imageURL;
-  final String title;
-  final String releaseDate;
-  final int daysLeft;
+  final ItemModel itemModel;
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +73,7 @@ class _ListViewItem extends StatelessWidget {
               color: Colors.black12,
               image: DecorationImage(
                 image: NetworkImage(
-                  imageURL,
+                  itemModel.imageURL,
                 ),
                 fit: BoxFit.cover,
               ),
@@ -104,14 +89,14 @@ class _ListViewItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Text(
-                        title,
+                        itemModel.title,
                         style: const TextStyle(
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       const SizedBox(height: 10),
-                      Text(releaseDate),
+                      Text(itemModel.releaseDate),
                     ],
                   ),
                 ),
@@ -125,7 +110,7 @@ class _ListViewItem extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      '$daysLeft',
+                      '${itemModel.daysLeft}',
                       style: const TextStyle(
                         fontSize: 20.0,
                         fontWeight: FontWeight.bold,
