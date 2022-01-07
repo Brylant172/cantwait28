@@ -22,6 +22,7 @@ class HomeCubit extends Cubit<HomeState> {
         final items = itemsRaw.docs
             .map(
               (item) => ItemModel(
+                id: item.id,
                 imageURL: item['image_url'],
                 title: item['title'],
                 releaseDate: (item['release_date'] as Timestamp).toDate(),
@@ -30,7 +31,27 @@ class HomeCubit extends Cubit<HomeState> {
             .toList();
         emit(HomeState(items: items));
       },
-    )..onError((error) {});
+    )..onError(
+        (error) {
+          emit(const HomeState(loadingErrorOccured: true));
+        },
+      );
+  }
+
+  Future<void> remove(ItemModel model) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('items')
+          .doc(model.id)
+          .delete();
+    } catch (error) {
+      emit(
+        const HomeState(
+          removingErrorOccured: true,
+        ),
+      );
+      start();
+    }
   }
 
   @override

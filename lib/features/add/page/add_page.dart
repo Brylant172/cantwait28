@@ -33,11 +33,14 @@ class AddPage extends StatelessWidget {
                 actions: [
                   IconButton(
                     onPressed: () {
-                      context.read<AddCubit>().add(ItemModel(
-                          imageURL:
-                              'https://playsiders.com/wp-content/uploads/2021/12/Horizon-Forbidden-West_PS4.jpg',
-                          title: 'Horizon Forbidden West',
-                          releaseDate: DateTime(2022, 2, 18)));
+                      context.read<AddCubit>().add(
+                            ItemModel(
+                              imageURL:
+                                  'https://playsiders.com/wp-content/uploads/2021/12/Horizon-Forbidden-West_PS4.jpg',
+                              title: 'Horizon Forbidden West',
+                              releaseDate: DateTime(2022, 2, 18),
+                            ),
+                          );
                     },
                     icon: const Icon(
                       Icons.check,
