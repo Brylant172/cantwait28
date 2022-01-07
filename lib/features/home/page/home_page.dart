@@ -30,7 +30,84 @@ class _HomePageBody extends StatelessWidget {
       child: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) {
           return ListView(
-            children: const [],
+            padding: const EdgeInsets.symmetric(
+              horizontal: 30,
+              vertical: 20,
+            ),
+            children: [
+              Container(
+                margin: const EdgeInsets.symmetric(
+                  vertical: 10,
+                ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 30,
+                  vertical: 20,
+                ),
+                color: Colors.black12,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: const [
+                          Text(
+                            'Pokémon Legends: Arceus',
+                            style: TextStyle(fontSize: 20.0),
+                          ),
+                          SizedBox(height: 10),
+                          Text('2022-01-28'),
+                        ],
+                      ),
+                    ),
+                    Column(
+                      children: const [
+                        Text(
+                          '28',
+                          style: TextStyle(fontSize: 20.0),
+                        ),
+                        Text('days left'),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.symmetric(
+                  vertical: 10,
+                ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 30,
+                  vertical: 20,
+                ),
+                color: Colors.black12,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: const [
+                          Text(
+                            'GTA VI',
+                            style: TextStyle(fontSize: 20.0),
+                          ),
+                          SizedBox(height: 10),
+                          Text('2023-06-27'),
+                        ],
+                      ),
+                    ),
+                    Column(
+                      children: const [
+                        Text(
+                          '450',
+                          style: TextStyle(fontSize: 20.0),
+                        ),
+                        Text('days left'),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
           );
         },
       ),
