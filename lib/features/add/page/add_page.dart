@@ -36,9 +36,9 @@ class AddPage extends StatelessWidget {
                       context.read<AddCubit>().add(
                             ItemModel(
                               imageURL:
-                                  'https://playsiders.com/wp-content/uploads/2021/12/Horizon-Forbidden-West_PS4.jpg',
-                              title: 'Horizon Forbidden West',
-                              releaseDate: DateTime(2022, 2, 18),
+                                  'https://www.imore.com/sites/imore.com/files/styles/xlarge/public/field/image/2021/08/pokemon-legends-arceus-fighting-growlithe.jpg',
+                              title: 'Pokémon Legends: Arceus',
+                              releaseDate: DateTime(2022, 1, 28),
                             ),
                           );
                     },
