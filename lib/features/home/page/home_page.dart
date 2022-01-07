@@ -1,5 +1,6 @@
+import 'package:cantwait28/features/add/page/add_page.dart';
 import 'package:cantwait28/features/home/cubit/home_cubit.dart';
-import 'package:cantwait28/features/home/model/item_model.dart';
+import 'package:cantwait28/models/item_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,7 +17,14 @@ class HomePage extends StatelessWidget {
       ),
       body: const _HomePageBody(),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const AddPage(),
+              fullscreenDialog: true,
+            ),
+          );
+        },
         child: const Icon(Icons.add),
       ),
     );
@@ -100,7 +108,7 @@ class _ListViewItem extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 10),
-                      Text(itemModel.releaseDate),
+                      Text(itemModel.releaseDateFormatted),
                     ],
                   ),
                 ),
