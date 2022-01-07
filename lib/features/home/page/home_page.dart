@@ -22,12 +22,15 @@ class _HomePageBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeCubit, HomeState>(
-      builder: (context, state) {
-        return ListView(
-          children: const [],
-        );
-      },
+    return BlocProvider(
+      create: (context) => HomeCubit()..start(),
+      child: BlocBuilder<HomeCubit, HomeState>(
+        builder: (context, state) {
+          return ListView(
+            children: const [],
+          );
+        },
+      ),
     );
   }
 }

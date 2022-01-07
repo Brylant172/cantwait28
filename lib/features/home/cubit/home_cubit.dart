@@ -5,4 +5,6 @@ part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeState());
+
+  Future<void> start() async {}
 }
