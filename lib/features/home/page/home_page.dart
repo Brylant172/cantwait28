@@ -63,13 +63,30 @@ class _HomePageBody extends StatelessWidget {
           builder: (context, state) {
             return ListView(
               padding: const EdgeInsets.symmetric(
-                horizontal: 30,
                 vertical: 20,
               ),
               children: [
                 for (final itemModel in state.items)
                   Dismissible(
                     key: ValueKey(itemModel.id),
+                    background: const DecoratedBox(
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                      ),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Padding(
+                          padding: EdgeInsets.only(right: 32.0),
+                          child: Icon(
+                            Icons.delete,
+                          ),
+                        ),
+                      ),
+                    ),
+                    confirmDismiss: (direction) async {
+                      // only from right to left
+                      return direction == DismissDirection.endToStart;
+                    },
                     onDismissed: (direction) {
                       context.read<HomeCubit>().remove(itemModel);
                     },
@@ -99,6 +116,7 @@ class _ListViewItem extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(
         vertical: 10,
+        horizontal: 30,
       ),
       decoration: const BoxDecoration(
         color: Colors.black12,
