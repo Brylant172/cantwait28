@@ -15,6 +15,10 @@ class HomePage extends StatelessWidget {
         title: const Text('Can\'t Wait 🤩'),
       ),
       body: const _HomePageBody(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }
