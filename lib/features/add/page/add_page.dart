@@ -39,29 +39,36 @@ class _AddPageState extends State<AddPage> {
           builder: (context, state) {
             return Scaffold(
               appBar: AppBar(
-                title: const Text('Dodaj nową premierę'),
+                title: const Text('Add new upcoming title'),
                 actions: [
                   IconButton(
-                    onPressed: () {
-                      context.read<AddCubit>().add(
-                            ItemModel(
-                              imageURL:
-                                  'https://www.imore.com/sites/imore.com/files/styles/xlarge/public/field/image/2021/08/pokemon-legends-arceus-fighting-growlithe.jpg',
-                              title: 'Pokémon Legends: Arceus',
-                              releaseDate: DateTime(2022, 1, 28),
-                            ),
-                          );
-                    },
+                    onPressed: _imageURL == null ||
+                            _title == null ||
+                            _releaseDate == null
+                        ? null
+                        : () {
+                            context.read<AddCubit>().add(
+                                  ItemModel(
+                                    imageURL: _imageURL!,
+                                    title: _title!,
+                                    releaseDate: _releaseDate!,
+                                  ),
+                                );
+                          },
                     icon: const Icon(Icons.check),
                   ),
                 ],
               ),
               body: _AddPageBody(
                 onTitleChanged: (newValue) {
-                  _title = newValue;
+                  setState(() {
+                    _title = newValue;
+                  });
                 },
                 onImageUrlChanged: (newValue) {
-                  _imageURL = newValue;
+                  setState(() {
+                    _imageURL = newValue;
+                  });
                 },
                 onDateChanged: (newValue) {
                   setState(() {
@@ -104,15 +111,28 @@ class _AddPageBody extends StatelessWidget {
       children: [
         TextField(
           onChanged: onTitleChanged,
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            hintText: 'Matrix 5',
+            label: Text('Title'),
+          ),
         ),
+        const SizedBox(height: 20),
+        TextField(
+          onChanged: onImageUrlChanged,
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            hintText: 'http:// ... .jpg',
+            label: Text('Image URL'),
+          ),
+        ),
+        const SizedBox(height: 20),
         ElevatedButton(
           onPressed: () async {
             final selectedDate = await showDatePicker(
               context: context,
               initialDate: DateTime.now(),
-              firstDate: DateTime.now().subtract(
-                const Duration(days: 365 * 10),
-              ),
+              firstDate: DateTime.now(),
               lastDate: DateTime.now().add(
                 const Duration(days: 365 * 10),
               ),
