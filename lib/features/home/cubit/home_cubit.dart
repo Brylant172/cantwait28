@@ -23,16 +23,8 @@ class HomeCubit extends Cubit<HomeState> {
         .snapshots()
         .listen(
       (itemsRaw) {
-        final items = itemsRaw.docs
-            .map(
-              (item) => ItemModel(
-                id: item.id,
-                imageURL: item['image_url'],
-                title: item['title'],
-                releaseDate: (item['release_date'] as Timestamp).toDate(),
-              ),
-            )
-            .toList();
+        final items =
+            itemsRaw.docs.map(ItemModel.createFromDocumentSnapshot).toList();
         emit(HomeState(items: items));
       },
     )..onError(

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
 class ItemModel {
@@ -19,5 +20,15 @@ class ItemModel {
 
   String get releaseDateFormatted {
     return DateFormat('yMMMd').format(releaseDate);
+  }
+
+  static ItemModel createFromDocumentSnapshot(
+      DocumentSnapshot<Map<String, dynamic>> doc) {
+    return ItemModel(
+      id: doc.id,
+      imageURL: doc['image_url'],
+      title: doc['title'],
+      releaseDate: (doc['release_date'] as Timestamp).toDate(),
+    );
   }
 }
