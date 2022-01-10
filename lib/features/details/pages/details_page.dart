@@ -40,6 +40,7 @@ class DetailsPage extends StatelessWidget {
               title: Text(state.itemModel?.title ?? ''),
             ),
             body: const _DetailsPageBody(),
+            backgroundColor: Colors.grey[200],
             floatingActionButton: FloatingActionButton(
               onPressed: () {
                 Navigator.of(context).pop();
@@ -72,97 +73,72 @@ class _DetailsPageBody extends StatelessWidget {
           return const SizedBox.shrink();
         }
         return ListView(
-          padding: const EdgeInsets.symmetric(
-            vertical: 20,
-          ),
           children: [
-            _ListViewItem(
-              itemModel: itemModel,
-            ),
-          ],
-        );
-      },
-    );
-  }
-}
-
-class _ListViewItem extends StatelessWidget {
-  const _ListViewItem({
-    Key? key,
-    required this.itemModel,
-  }) : super(key: key);
-
-  final ItemModel itemModel;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(
-        vertical: 10,
-        horizontal: 30,
-      ),
-      decoration: const BoxDecoration(
-        color: Colors.black12,
-      ),
-      child: Column(
-        children: [
-          Container(
-            height: 80,
-            decoration: BoxDecoration(
-              color: Colors.black12,
-              image: DecorationImage(
-                image: NetworkImage(
-                  itemModel.imageURL,
+            Container(
+              height: 200,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: NetworkImage(
+                    itemModel.imageURL,
+                  ),
+                  fit: BoxFit.cover,
                 ),
-                fit: BoxFit.cover,
               ),
             ),
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: Container(
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    margin: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                          itemModel.title,
+                          style: const TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(itemModel.releaseDateFormatted),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.white70,
+                  ),
                   margin: const EdgeInsets.all(10),
                   padding: const EdgeInsets.all(10),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Text(
-                        itemModel.title,
+                        '${itemModel.daysLeft}',
                         style: const TextStyle(
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(height: 10),
-                      Text(itemModel.releaseDateFormatted),
+                      const Text('days left'),
                     ],
                   ),
                 ),
-              ),
-              Container(
-                decoration: const BoxDecoration(
-                  color: Colors.white70,
-                ),
-                margin: const EdgeInsets.all(10),
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  children: [
-                    Text(
-                      '${itemModel.daysLeft}',
-                      style: const TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const Text('days left'),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
+              ],
+            ),
+            const Padding(
+              padding: EdgeInsets.all(20.0),
+              child: Text('''
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  '''),
+            ),
+          ],
+        );
+      },
     );
   }
 }
