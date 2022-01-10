@@ -1,5 +1,3 @@
-import 'package:cantwait28/features/add/page/add_page.dart';
-import 'package:cantwait28/features/auth/pages/user_profile.dart';
 import 'package:cantwait28/features/details/cubit/details_cubit.dart';
 import 'package:cantwait28/models/item_model.dart';
 import 'package:flutter/material.dart';
@@ -8,52 +6,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class DetailsPage extends StatelessWidget {
   const DetailsPage({
     Key? key,
+    required this.itemID,
   }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Can\'t Wait 🤩'),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const UserProfile(),
-                ),
-              );
-            },
-            icon: const Icon(Icons.person),
-          )
-        ],
-      ),
-      body: const _DetailsPageBody(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => const AddPage(),
-              fullscreenDialog: true,
-            ),
-          );
-        },
-        child: const Icon(Icons.add),
-      ),
-    );
-  }
-}
-
-class _DetailsPageBody extends StatelessWidget {
-  const _DetailsPageBody({
-    Key? key,
-  }) : super(key: key);
+  final String itemID;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => DetailsCubit(),
-      child: BlocListener<DetailsCubit, DetailsState>(
+      create: (context) => DetailsCubit()..getItemWithID(itemID),
+      child: BlocConsumer<DetailsCubit, DetailsState>(
         listener: (context, state) {
           if (state.removingErrorOccured) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -72,25 +34,49 @@ class _DetailsPageBody extends StatelessWidget {
             );
           }
         },
-        child: BlocBuilder<DetailsCubit, DetailsState>(
-          builder: (context, state) {
-            final itemModel = state.itemModel;
-            if (itemModel == null) {
-              return const SizedBox.shrink();
-            }
-            return ListView(
-              padding: const EdgeInsets.symmetric(
-                vertical: 20,
-              ),
-              children: [
-                _ListViewItem(
-                  itemModel: itemModel,
-                ),
-              ],
-            );
-          },
-        ),
+        builder: (context, state) {
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text('Can\'t Wait 🤩'),
+            ),
+            body: const _DetailsPageBody(),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Icon(Icons.arrow_back),
+            ),
+          );
+        },
       ),
+    );
+  }
+}
+
+class _DetailsPageBody extends StatelessWidget {
+  const _DetailsPageBody({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<DetailsCubit, DetailsState>(
+      builder: (context, state) {
+        final itemModel = state.itemModel;
+        if (itemModel == null) {
+          return const SizedBox.shrink();
+        }
+        return ListView(
+          padding: const EdgeInsets.symmetric(
+            vertical: 20,
+          ),
+          children: [
+            _ListViewItem(
+              itemModel: itemModel,
+            ),
+          ],
+        );
+      },
     );
   }
 }

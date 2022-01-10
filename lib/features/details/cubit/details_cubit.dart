@@ -10,14 +10,14 @@ part 'details_state.dart';
 class DetailsCubit extends Cubit<DetailsState> {
   DetailsCubit() : super(const DetailsState());
 
-  Future<void> remove(ItemModel model) async {
+  Future<void> getItemWithID(String itemID) async {
     try {
       final userID = FirebaseAuth.instance.currentUser?.uid;
       final result = await FirebaseFirestore.instance
           .collection('users')
           .doc(userID)
           .collection('items')
-          .doc(model.id)
+          .doc(itemID)
           .get();
       final itemModel = ItemModel.createFromDocumentSnapshot(result);
       emit(DetailsState(itemModel: itemModel));
