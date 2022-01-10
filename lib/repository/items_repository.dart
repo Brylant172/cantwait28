@@ -18,4 +18,27 @@ class ItemsRepository {
     final itemModel = ItemModel.createFromDocumentSnapshot(doc);
     return itemModel;
   }
+
+  Stream<List<ItemModel>> getItemsStream() {
+    final userID = FirebaseAuth.instance.currentUser?.uid;
+    if (userID == null) {
+      throw Exception('User is not logged in');
+    }
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(userID)
+        .collection('items')
+        .orderBy('release_date')
+        .snapshots()
+        .map(
+      (itemsRaw) {
+        final items = itemsRaw.docs.map(
+          (doc) {
+            return ItemModel.createFromDocumentSnapshot(doc);
+          },
+        ).toList();
+        return items;
+      },
+    );
+  }
 }

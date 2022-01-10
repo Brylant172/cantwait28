@@ -2,28 +2,22 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:cantwait28/models/item_model.dart';
+import 'package:cantwait28/repository/items_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit() : super(const HomeState());
+  HomeCubit(this._itemsRepository) : super(const HomeState());
+
+  final ItemsRepository _itemsRepository;
 
   StreamSubscription? _streamSubscription;
 
   Future<void> start() async {
-    final userID = FirebaseAuth.instance.currentUser?.uid;
-    _streamSubscription = FirebaseFirestore.instance
-        .collection('users')
-        .doc(userID)
-        .collection('items')
-        .orderBy('release_date')
-        .snapshots()
-        .listen(
-      (itemsRaw) {
-        final items =
-            itemsRaw.docs.map(ItemModel.createFromDocumentSnapshot).toList();
+    _streamSubscription = _itemsRepository.getItemsStream().listen(
+      (items) {
         emit(HomeState(items: items));
       },
     )..onError(
