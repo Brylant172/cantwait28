@@ -41,4 +41,17 @@ class ItemsRepository {
       },
     );
   }
+
+  Future<void> remove(ItemModel model) {
+    final userID = FirebaseAuth.instance.currentUser?.uid;
+    if (userID == null) {
+      throw Exception('User is not logged in');
+    }
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(userID)
+        .collection('items')
+        .doc(model.id)
+        .delete();
+  }
 }
