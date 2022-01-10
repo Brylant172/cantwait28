@@ -1,5 +1,6 @@
 import 'package:cantwait28/features/add/page/add_page.dart';
 import 'package:cantwait28/features/auth/pages/user_profile.dart';
+import 'package:cantwait28/features/details/pages/details_page.dart';
 import 'package:cantwait28/features/home/cubit/home_cubit.dart';
 import 'package:cantwait28/models/item_model.dart';
 import 'package:flutter/material.dart';
@@ -126,72 +127,83 @@ class _ListViewItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(
+    return Padding(
+      padding: const EdgeInsets.symmetric(
         vertical: 10,
         horizontal: 30,
       ),
-      decoration: const BoxDecoration(
-        color: Colors.black12,
-      ),
-      child: Column(
-        children: [
-          Container(
-            height: 80,
-            decoration: BoxDecoration(
-              color: Colors.black12,
-              image: DecorationImage(
-                image: NetworkImage(
-                  itemModel.imageURL,
-                ),
-                fit: BoxFit.cover,
-              ),
+      child: InkWell(
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => DetailsPage(itemID: itemModel.id),
             ),
+          );
+        },
+        child: Container(
+          decoration: const BoxDecoration(
+            color: Colors.black12,
           ),
-          Row(
+          child: Column(
             children: [
-              Expanded(
-                child: Container(
-                  margin: const EdgeInsets.all(10),
-                  padding: const EdgeInsets.all(10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Text(
-                        itemModel.title,
-                        style: const TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      Text(itemModel.releaseDateFormatted),
-                    ],
+              Container(
+                height: 80,
+                decoration: BoxDecoration(
+                  color: Colors.black12,
+                  image: DecorationImage(
+                    image: NetworkImage(
+                      itemModel.imageURL,
+                    ),
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
-              Container(
-                decoration: const BoxDecoration(
-                  color: Colors.white70,
-                ),
-                margin: const EdgeInsets.all(10),
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  children: [
-                    Text(
-                      '${itemModel.daysLeft}',
-                      style: const TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
+              Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      margin: const EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(
+                            itemModel.title,
+                            style: const TextStyle(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(itemModel.releaseDateFormatted),
+                        ],
                       ),
                     ),
-                    const Text('days left'),
-                  ],
-                ),
+                  ),
+                  Container(
+                    decoration: const BoxDecoration(
+                      color: Colors.white70,
+                    ),
+                    margin: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
+                    child: Column(
+                      children: [
+                        Text(
+                          '${itemModel.daysLeft}',
+                          style: const TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const Text('days left'),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
-        ],
+        ),
       ),
     );
   }
