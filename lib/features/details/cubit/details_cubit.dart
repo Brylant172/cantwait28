@@ -7,9 +7,9 @@ import 'package:cantwait28/repository/items_repository.dart';
 part 'details_state.dart';
 
 class DetailsCubit extends Cubit<DetailsState> {
-  DetailsCubit() : super(const DetailsState());
+  DetailsCubit(this._itemsRepository) : super(const DetailsState());
 
-  final _itemsRepository = ItemsRepository();
+  final ItemsRepository _itemsRepository;
 
   Future<void> getItemWithID(String itemID) async {
     emit(const DetailsState(isLoading: true));
