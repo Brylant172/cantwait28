@@ -11,6 +11,8 @@ class DetailsCubit extends Cubit<DetailsState> {
   DetailsCubit() : super(const DetailsState());
 
   Future<void> getItemWithID(String itemID) async {
+    emit(const DetailsState(isLoading: true));
+    await Future.delayed(const Duration(seconds: 1));
     try {
       final userID = FirebaseAuth.instance.currentUser?.uid;
       final result = await FirebaseFirestore.instance

@@ -37,7 +37,7 @@ class DetailsPage extends StatelessWidget {
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
-              title: const Text('Can\'t Wait 🤩'),
+              title: Text(state.itemModel?.title ?? ''),
             ),
             body: const _DetailsPageBody(),
             floatingActionButton: FloatingActionButton(
@@ -63,6 +63,11 @@ class _DetailsPageBody extends StatelessWidget {
     return BlocBuilder<DetailsCubit, DetailsState>(
       builder: (context, state) {
         final itemModel = state.itemModel;
+        if (state.isLoading) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
         if (itemModel == null) {
           return const SizedBox.shrink();
         }
