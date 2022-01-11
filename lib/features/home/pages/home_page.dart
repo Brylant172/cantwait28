@@ -114,7 +114,7 @@ class _ListViewItem extends StatelessWidget {
                 color: Colors.black12,
                 image: DecorationImage(
                   image: NetworkImage(
-                    document['imageURL'],
+                    document['image_url'],
                   ),
                   fit: BoxFit.cover,
                 ),
@@ -137,7 +137,11 @@ class _ListViewItem extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 10),
-                        const Text('release-date-here'),
+                        Text(
+                          (document['release_date'] as Timestamp)
+                              .toDate()
+                              .toString(),
+                        ),
                       ],
                     ),
                   ),
@@ -151,7 +155,7 @@ class _ListViewItem extends StatelessWidget {
                   child: Column(
                     children: const [
                       Text(
-                        'TODO',
+                        '0',
                         style: TextStyle(
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,
