@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:cantwait28/models/item_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 part 'add_state.dart';
 
@@ -12,12 +11,7 @@ class AddCubit extends Cubit<AddState> {
 
   Future<void> add(ItemModel item) async {
     try {
-      final userID = FirebaseAuth.instance.currentUser?.uid;
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(userID)
-          .collection('items')
-          .add(
+      await FirebaseFirestore.instance.collection('items').add(
         {
           'title': item.title,
           'image_url': item.imageURL,

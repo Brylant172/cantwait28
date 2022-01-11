@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:cantwait28/models/item_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 part 'details_state.dart';
 
@@ -14,13 +13,7 @@ class DetailsCubit extends Cubit<DetailsState> {
     emit(const DetailsState(isLoading: true));
     try {
       await Future.delayed(const Duration(seconds: 1));
-      final userID = FirebaseAuth.instance.currentUser?.uid;
-      if (userID == null) {
-        throw Exception('User is not logged in');
-      }
       final doc = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(userID)
           .collection('items')
           .doc(itemID)
           .get();
