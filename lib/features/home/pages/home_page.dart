@@ -40,64 +40,44 @@ class _HomePageBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => HomeCubit()..start(),
-      child: BlocListener<HomeCubit, HomeState>(
-        listener: (context, state) {
-          if (state.removingErrorOccured) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Unable to remove the item'),
-                backgroundColor: Colors.red,
-              ),
-            );
-          }
-          if (state.loadingErrorOccured) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Couldn\'t load data :('),
-                backgroundColor: Colors.red,
-              ),
-            );
-          }
-        },
-        child: BlocBuilder<HomeCubit, HomeState>(
-          builder: (context, state) {
-            return ListView(
-              padding: const EdgeInsets.symmetric(
-                vertical: 20,
-              ),
-              children: [
-                for (final itemModel in state.items)
-                  Dismissible(
-                    key: ValueKey(itemModel.id),
-                    background: const DecoratedBox(
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                      ),
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: Padding(
-                          padding: EdgeInsets.only(right: 32.0),
-                          child: Icon(
-                            Icons.delete,
-                          ),
+      child: BlocBuilder<HomeCubit, HomeState>(
+        builder: (context, state) {
+          return ListView(
+            padding: const EdgeInsets.symmetric(
+              vertical: 20,
+            ),
+            children: [
+              for (final itemModel in state.items)
+                Dismissible(
+                  key: ValueKey(itemModel.id),
+                  background: const DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                    ),
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Padding(
+                        padding: EdgeInsets.only(right: 32.0),
+                        child: Icon(
+                          Icons.delete,
                         ),
                       ),
                     ),
-                    confirmDismiss: (direction) async {
-                      // only from right to left
-                      return direction == DismissDirection.endToStart;
-                    },
-                    onDismissed: (direction) {
-                      context.read<HomeCubit>().remove(itemModel);
-                    },
-                    child: _ListViewItem(
-                      itemModel: itemModel,
-                    ),
                   ),
-              ],
-            );
-          },
-        ),
+                  confirmDismiss: (direction) async {
+                    // only from right to left
+                    return direction == DismissDirection.endToStart;
+                  },
+                  onDismissed: (direction) {
+                    context.read<HomeCubit>().remove(itemModel);
+                  },
+                  child: _ListViewItem(
+                    itemModel: itemModel,
+                  ),
+                ),
+            ],
+          );
+        },
       ),
     );
   }

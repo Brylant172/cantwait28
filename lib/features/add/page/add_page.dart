@@ -22,66 +22,52 @@ class _AddPageState extends State<AddPage> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AddCubit(),
-      child: BlocListener<AddCubit, AddState>(
-        listener: (context, state) {
-          if (state.saved == true) {
-            Navigator.of(context).pop();
-          } else if (state.errorMessage.isNotEmpty) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('An error occured: ${state.errorMessage}'),
-                backgroundColor: Colors.red,
-              ),
-            );
-          }
+      child: BlocBuilder<AddCubit, AddState>(
+        builder: (context, state) {
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text('Add new upcoming title'),
+              actions: [
+                IconButton(
+                  onPressed: _imageURL == null ||
+                          _title == null ||
+                          _releaseDate == null
+                      ? null
+                      : () {
+                          context.read<AddCubit>().add(
+                                ItemModel(
+                                  imageURL: _imageURL!,
+                                  title: _title!,
+                                  releaseDate: _releaseDate!,
+                                ),
+                              );
+                        },
+                  icon: const Icon(Icons.check),
+                ),
+              ],
+            ),
+            body: _AddPageBody(
+              onTitleChanged: (newValue) {
+                setState(() {
+                  _title = newValue;
+                });
+              },
+              onImageUrlChanged: (newValue) {
+                setState(() {
+                  _imageURL = newValue;
+                });
+              },
+              onDateChanged: (newValue) {
+                setState(() {
+                  _releaseDate = newValue;
+                });
+              },
+              selectedDateFormatted: _releaseDate != null
+                  ? DateFormat.yMMMMd().format(_releaseDate!)
+                  : null,
+            ),
+          );
         },
-        child: BlocBuilder<AddCubit, AddState>(
-          builder: (context, state) {
-            return Scaffold(
-              appBar: AppBar(
-                title: const Text('Add new upcoming title'),
-                actions: [
-                  IconButton(
-                    onPressed: _imageURL == null ||
-                            _title == null ||
-                            _releaseDate == null
-                        ? null
-                        : () {
-                            context.read<AddCubit>().add(
-                                  ItemModel(
-                                    imageURL: _imageURL!,
-                                    title: _title!,
-                                    releaseDate: _releaseDate!,
-                                  ),
-                                );
-                          },
-                    icon: const Icon(Icons.check),
-                  ),
-                ],
-              ),
-              body: _AddPageBody(
-                onTitleChanged: (newValue) {
-                  setState(() {
-                    _title = newValue;
-                  });
-                },
-                onImageUrlChanged: (newValue) {
-                  setState(() {
-                    _imageURL = newValue;
-                  });
-                },
-                onDateChanged: (newValue) {
-                  setState(() {
-                    _releaseDate = newValue;
-                  });
-                },
-                selectedDateFormatted: _releaseDate != null
-                    ? DateFormat.yMMMMd().format(_releaseDate!)
-                    : null,
-              ),
-            );
-          },
-        ),
       ),
     );
   }
