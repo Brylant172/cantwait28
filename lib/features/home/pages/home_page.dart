@@ -3,7 +3,6 @@ import 'package:cantwait28/features/auth/pages/user_profile.dart';
 import 'package:cantwait28/features/details/pages/details_page.dart';
 import 'package:cantwait28/features/home/cubit/home_cubit.dart';
 import 'package:cantwait28/models/item_model.dart';
-import 'package:cantwait28/repository/items_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -54,7 +53,7 @@ class _HomePageBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeCubit(ItemsRepository())..start(),
+      create: (context) => HomeCubit()..start(),
       child: BlocListener<HomeCubit, HomeState>(
         listener: (context, state) {
           if (state.removingErrorOccured) {

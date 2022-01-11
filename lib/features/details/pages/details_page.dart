@@ -1,5 +1,4 @@
 import 'package:cantwait28/features/details/cubit/details_cubit.dart';
-import 'package:cantwait28/repository/items_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,7 +14,7 @@ class DetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) {
-        return DetailsCubit(ItemsRepository())..getItemWithID(itemID);
+        return DetailsCubit()..getItemWithID(itemID);
       },
       child: BlocConsumer<DetailsCubit, DetailsState>(
         listener: (context, state) {
