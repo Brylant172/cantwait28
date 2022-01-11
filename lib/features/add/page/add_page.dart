@@ -31,13 +31,12 @@ class _AddPageState extends State<AddPage> {
                           _title == null ||
                           _releaseDate == null
                       ? null
-                      : () async {
-                          await context.read<AddCubit>().add(
+                      : () {
+                          context.read<AddCubit>().add(
                                 _title!,
                                 _imageURL!,
                                 _releaseDate!,
                               );
-                          Navigator.of(context).pop();
                         },
                   icon: const Icon(Icons.check),
                 ),
