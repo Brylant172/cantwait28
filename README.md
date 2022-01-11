@@ -1,15 +1,38 @@
-# cantwait28
+# Can't Wait App
 
-A new Flutter project.
+This project is a Flutter application.
 
-## Getting Started
+It counts days down to exciting dates in the future.
 
-This project is a starting point for a Flutter application.
+# Installation
 
-A few resources to get you started if this is your first Flutter project:
+To run it please:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+
+## Change App ID:
+
+Find and replace any occurance of `com.example` to `com.yourcompanyname`
+
+## Configure Firebase in your system:
+
+- [Install Firebase CLI](https://firebase.google.com/docs/cli)
+
+```
+# Login to your Google Account where you want to store data of a project
+firebase login
+```
+
+```
+# Install the CLI if not already done so
+dart pub global activate flutterfire_cli
+```
+
+```
+# Run the `configure` command, select a Firebase project and platforms
+flutterfire configure
+```
+
+# Getting Started with Flutter
 
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
