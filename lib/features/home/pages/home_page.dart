@@ -76,7 +76,7 @@ class _HomePageBody extends StatelessWidget {
                     context.read<HomeCubit>().remove(documentID: doc.id);
                   },
                   child: _ListViewItem(
-                    doc: doc,
+                    document: doc,
                   ),
                 ),
             ],
@@ -90,10 +90,10 @@ class _HomePageBody extends StatelessWidget {
 class _ListViewItem extends StatelessWidget {
   const _ListViewItem({
     Key? key,
-    required this.doc,
+    required this.document,
   }) : super(key: key);
 
-  final QueryDocumentSnapshot<Map<String, dynamic>> doc;
+  final QueryDocumentSnapshot<Map<String, dynamic>> document;
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +114,7 @@ class _ListViewItem extends StatelessWidget {
                 color: Colors.black12,
                 image: DecorationImage(
                   image: NetworkImage(
-                    doc['imageURL'],
+                    document['imageURL'],
                   ),
                   fit: BoxFit.cover,
                 ),
@@ -130,7 +130,7 @@ class _ListViewItem extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Text(
-                          doc['title'],
+                          document['title'],
                           style: const TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold,
