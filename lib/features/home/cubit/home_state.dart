@@ -2,11 +2,11 @@ part of 'home_cubit.dart';
 
 class HomeState {
   const HomeState({
-    this.items = const [],
+    this.items,
     this.loadingErrorOccured = false,
     this.removingErrorOccured = false,
   });
-  final List<ItemModel> items;
+  final QuerySnapshot<Map<String, dynamic>>? items;
   final bool loadingErrorOccured;
   final bool removingErrorOccured;
 }

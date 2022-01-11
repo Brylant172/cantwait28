@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:cantwait28/models/item_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 part 'add_state.dart';
@@ -9,13 +8,13 @@ part 'add_state.dart';
 class AddCubit extends Cubit<AddState> {
   AddCubit() : super(const AddState());
 
-  Future<void> add(ItemModel item) async {
+  Future<void> add(String title, String imageURL, DateTime releaseDate,) async {
     try {
       await FirebaseFirestore.instance.collection('items').add(
         {
-          'title': item.title,
-          'image_url': item.imageURL,
-          'release_date': item.releaseDate,
+          'title': title,
+          'image_url': imageURL,
+          'release_date': releaseDate,
         },
       );
       emit(const AddState(saved: true));
