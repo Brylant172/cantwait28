@@ -32,6 +32,13 @@ dart pub global activate flutterfire_cli
 flutterfire configure
 ```
 
+## Configure Firebase project
+
+Log in to your [Firebase Account](https://console.firebase.google.com/) 
+
+1. Enable Authentication > Email/Password Provider 
+2. Create Cloud Firestore database.
+
 # Getting Started with Flutter
 
 For help getting started with Flutter, view our
