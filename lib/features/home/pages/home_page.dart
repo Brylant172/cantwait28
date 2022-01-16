@@ -124,13 +124,11 @@ class _ListViewItem extends StatelessWidget {
             ),
           );
         },
-        child: Container(
-          decoration: const BoxDecoration(
-            color: Colors.black12,
-          ),
-          child: Column(
-            children: [
-              Container(
+        child: Column(
+          children: [
+            Hero(
+              tag: itemModel.id,
+              child: Container(
                 height: 80,
                 decoration: BoxDecoration(
                   color: Colors.black12,
@@ -142,7 +140,12 @@ class _ListViewItem extends StatelessWidget {
                   ),
                 ),
               ),
-              Row(
+            ),
+            DecoratedBox(
+              decoration: const BoxDecoration(
+                color: Colors.black12,
+              ),
+              child: Row(
                 children: [
                   Expanded(
                     child: Container(
@@ -187,8 +190,8 @@ class _ListViewItem extends StatelessWidget {
                   ),
                 ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

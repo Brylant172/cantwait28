@@ -17,15 +17,18 @@ class DetailsPage extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          Container(
-            height: 240,
-            decoration: BoxDecoration(
-              color: Colors.black12,
-              image: DecorationImage(
-                image: NetworkImage(
-                  itemModel.imageURL,
+          Hero(
+            tag: itemModel.id,
+            child: Container(
+              height: 240,
+              decoration: BoxDecoration(
+                color: Colors.black12,
+                image: DecorationImage(
+                  image: NetworkImage(
+                    itemModel.imageURL,
+                  ),
+                  fit: BoxFit.cover,
                 ),
-                fit: BoxFit.cover,
               ),
             ),
           ),
