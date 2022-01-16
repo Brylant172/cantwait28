@@ -13,7 +13,7 @@ class DetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Can\'t Wait 🤩'),
+        title: Text(itemModel.title),
       ),
       body: ListView(
         padding: const EdgeInsets.symmetric(
