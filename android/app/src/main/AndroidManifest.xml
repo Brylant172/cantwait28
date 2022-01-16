@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.adamsmaka.cantwait28">
    <application
-        android:label="cantwait28"
+        android:label="Can't Wait"
         android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
