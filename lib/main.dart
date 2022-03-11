@@ -17,9 +17,7 @@ class MyApp extends StatelessWidget {
   }
 
   ThemeData getThemeData() {
-    return ThemeData(
-      primarySwatch: Colors.blue,
-    );
+    return ThemeData.dark();
   }
 }
 
