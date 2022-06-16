@@ -13,6 +13,7 @@ class ItemsRepository {
         .doc(userID)
         .collection('items')
         .orderBy('release_date')
+        .where('release_date', isGreaterThan: DateTime.now())
         .snapshots()
         .map((querySnapshot) {
       return querySnapshot.docs.map(
