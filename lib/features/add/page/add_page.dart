@@ -23,6 +23,14 @@ class _AddPageState extends State<AddPage> {
         if (state.saved) {
           Navigator.of(context).pop();
         }
+        if (state.errorMessage.isNotEmpty) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.errorMessage),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
       },
       child: BlocProvider(
         create: (context) => AddCubit(),
